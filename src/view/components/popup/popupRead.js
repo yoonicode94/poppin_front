@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import $ from 'jquery';
 
 
-class popupRead extends Component {
+class PopupRead extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -178,5 +178,5 @@ class popupRead extends Component {
         );
     }
 }
-export default popupRead;
+export default PopupRead;
    
