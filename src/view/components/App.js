@@ -1,8 +1,5 @@
 import '../../App.css'
-<<<<<<< HEAD
-=======
 /* import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; */
->>>>>>> c14ca67966908634dff95c8286db2ed8e4828d3b
 import { Route } from 'react-router-dom';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -48,16 +45,16 @@ class App extends Component {
     }
   }
 
+  //인터셉터 기능
   componentDidMount() {
 
-    if (window.location.pathname === ('/boardlist') ||
-      window.location.pathname === ('/member/memberinfo')) {
-      if (sessionStorage.getItem("sessionLogin") != undefined) {
-        return;
-      }
+    if (window.location.pathname === ('/board/boardlist') ||
+      window.location.pathname === ('/member/memberinfo') ||
+      window.location.pathname === ('/board/boardregist')) {
+
       axios.post('http://localhost:8080/member/jwtChk', {
-        token1: cookie.load('userid')
-        , token2: cookie.load('username')
+        token1: cookie.load('userid'),
+        token2: cookie.load('username')
       })
         .then(response => {
           this.state.userid = response.data.token1
@@ -98,32 +95,22 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderAdmin />
-<<<<<<< HEAD
-        <Route exact path="/" component={mainView} />
-        <Route path="/popup/popuplist" component={popupList} />
-        <Route path="/popup/popupread" component={popupRead} />
-        <Route path="/boardlist" component={boardList} />
-        <Route path="/boardpage" component={boardPage} />
-        <Route path="/login" component={login} />
-        <Route path="/join" component={join} />
-        <Footer />
-=======
-          {/* <Routes>
+        {/* <Routes>
             <Route exact path="/" Component={mainView}/>
             <Route path="/popup/popupList" Component={popupList} />
             <Route path="/popup/popupRead/:sno" Component={popupRead} />
             <Route path="/board/boardList" Component={boardList} />
             <Route path="/board/boardPage" Component={boardPage} />
           </Routes> */}
-          <Route exact path='/' component={mainView}/>
-          <Route path='/popup/popupList' component={popupList} />
-          <Route path='/popup/popupRead/:sno' component={popupRead} />
-          <Route path='/board/boardList' component={boardList} />
-          <Route path='/board/boardPage/:bno' component={boardPage} />
-          <Route path='/board/boardRegist' component={boardRegist} />
-        <Footer/>
-        
->>>>>>> c14ca67966908634dff95c8286db2ed8e4828d3b
+        <Route exact path='/' component={mainView} />
+        <Route path='/popup/popupList' component={popupList} />
+        <Route path='/popup/popupRead/:sno' component={popupRead} />
+        <Route path='/board/boardList' component={boardList} />
+        <Route path='/board/boardPage/:bno' component={boardPage} />
+        <Route path='/board/boardRegist' component={boardRegist} />
+        <Route path="/login" component={login} />
+        <Route path="/join" component={join} />
+        <Footer />
       </div>
     );
   }

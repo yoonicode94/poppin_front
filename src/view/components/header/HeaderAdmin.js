@@ -109,21 +109,12 @@ class Header extends Component {
                                 <a id="product" class="nav-link" href="/goodslist" onClick={() => this.handleMenuClick('/goodslist')}>상품</a>
                             </li>
 
-<<<<<<< HEAD
                             <li class={`nav-item ${window.location.pathname === '/popup/popuplist' ? 'active' : ''}`}>
                                 <a id="popupstore" class="nav-link" href="/popup/popuplist" onClick={() => this.handleMenuClick('/popup/popuplist')}>팝업스토어</a>
                             </li>
 
-                            <li class={`nav-item ${window.location.pathname === '/boardlist' ? 'active' : ''}`}>
-                                <a id="board" class="nav-link" href="/boardlist" onClick={() => this.handleMenuClick('/boardlist')}>게시판</a>
-=======
-                            <li class="nav-item">
-                                <a id="popupstore" class="nav-link" href="/popup/popupList">팝업스토어</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a id="board" class="nav-link" href="/board/boardlist">게시판</a>
->>>>>>> c14ca67966908634dff95c8286db2ed8e4828d3b
+                            <li class={`nav-item ${window.location.pathname === '/board/boardlist' ? 'active' : ''}`}>
+                                <a id="board" class="nav-link" href="/board/boardlist" onClick={() => this.handleMenuClick('/boardlist')}>게시판</a>
                             </li>
 
                             <li class="nav-item">

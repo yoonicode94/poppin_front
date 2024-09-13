@@ -244,7 +244,7 @@ class join extends Component {
 			<section>
 				<div class="register-box">
 					<div class="register-logo">
-						<Link to={"/"} style={{ fontWeight: "600" }}>Pop<span class="color-b">Pin</span></Link>
+						<a href="/" style={{ fontWeight: "600" }}>Pop<span class="color-b">Pin</span></a>
 					</div>
 
 					<div class="register-box-body">
