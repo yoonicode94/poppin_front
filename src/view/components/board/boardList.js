@@ -9,7 +9,11 @@ class BoardList extends Component {
             responseBoardList: [],  // 전체 게시글 목록
             filteredBoardList: [],  // 필터링된 게시글 목록
             searchType: 'n',        // 기본 검색 타입 (n: 전체)
-            keyword: ''             // 검색 키워드
+            keyword: '',            // 검색 키워드
+            currentPage: 1,
+            totalPage: 1,           // 페이지 수 추가
+            pageSize: 10,           // 페이지당 항목 수 추가
+            totalItems:'',
         };
     }
 
@@ -20,9 +24,14 @@ class BoardList extends Component {
     callBoardAPI = async () => {
         try {
             const response = await axios.get('http://localhost:8080/board/boardList');
+
+            const totalItems = response.data.boardList.length;
+            const totalPage = Math.ceil(totalItems / this.state.pageSize);  // 전체 페이지 수 계산
+
             this.setState({ 
                 responseBoardList: response.data.boardList,
-                filteredBoardList: response.data.boardList // 초기화
+                filteredBoardList: response.data.boardList, // 초기화
+                totalPage: totalPage  // 전체 페이지 수 설정
             });
         } catch (error) {
             alert('오류: ' + error);
@@ -51,8 +60,10 @@ class BoardList extends Component {
                 }
             });
         }
+        const totalItems = filteredBoardList.length;
+        const totalPage = Math.ceil(totalItems/this.state.pageSize);
 
-        this.setState({ filteredBoardList });
+        this.setState({ filteredBoardList, totalItems, totalPage, currentPage:1 });
     }
 
     handleSearchTypeChange = (event) => {
@@ -64,13 +75,55 @@ class BoardList extends Component {
         this.setState({ keyword: event.target.value });
     }
 
+    //페이지네이션
+    renderPagination = () => {
+        const { currentPage, totalPage } = this.state;
+
+        if (totalPage <= 1) return null;
+
+        const pages = [];
+        for (let i = 1; i <= totalPage; i++) {
+            pages.push(i);
+        }
+        return (
+            <div className="pagination">
+                <button 
+                    onClick={() => this.setState({ currentPage: Math.max(1, currentPage - 1) })}
+                    disabled={currentPage === 1}
+                >
+                    이전
+                </button>
+                {pages.map(page => (
+                    <button
+                        key={page}
+                        onClick={() => this.setState({ currentPage: page })}
+                        className={currentPage === page ? 'active' : ''}
+                    >
+                        {page}
+                    </button>
+                ))}
+                <button 
+                    onClick={() => this.setState({ currentPage: Math.min(totalPage, currentPage + 1) })}
+                    disabled={currentPage === totalPage}
+                >
+                    다음
+                </button>
+            </div>
+        );
+    }
+
+
     FloatBoardAppend = () => {
-        const { filteredBoardList } = this.state;
+        const { filteredBoardList, currentPage, pageSize } = this.state;
         if (!filteredBoardList || filteredBoardList.length === 0) {
             return <tr><td colSpan="5">데이터가 없습니다</td></tr>;
         }
 
-        return filteredBoardList.map((board) => (
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginatedBoardList = filteredBoardList.slice(startIndex, endIndex);
+
+        return paginatedBoardList.map((board) => (
             <tr key={board.bno}>
                 <td>{board.bno}</td>
                 <td className="title-align">
@@ -84,6 +137,7 @@ class BoardList extends Component {
             </tr>
         ));
     };
+
 
     render() {
         return (
@@ -150,6 +204,9 @@ class BoardList extends Component {
                                             </table>
                                         </div>
                                     </div>
+                                </div>
+                                <div>
+                                {this.renderPagination()}
                                 </div>
                                 <div className="box-footer">
                                     <div className="list-registBtn">

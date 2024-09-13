@@ -6,26 +6,26 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 
 //header
-import HeaderAdmin from './header/HeaderAdmin';
+import HeaderAdmin from './Header/HeaderAdmin';
 
 //footer
-import Footer from './footer/Footer';
+import Footer from './Footer/Footer';
 
 //팝업  스토어
-import popupList from './popup/popupList';
-import popupRead from './popup/popupRead';
+import PopupList from './Popup/PopupList';
+import PopupRead from './Popup/PopupRead';
 
 //main 
-import mainView from './mainView';
+import MainView from './mainView';
 
 //게시판 
-import boardList from './board/boardList';
-import boardPage from './board/boardPage';
-import boardRegist from './board/boardRegist';
+import BoardList from './Board/BoardList';
+import BoardPage from './Board/BoardPage';
+import BoardRegist from './Board/BoardRegist';
 
 //회원기능
-import join from './member/join';
-import login from './member/login';
+import Join from './Member/Join';
+import Login from './Member/Login';
 
 //css
 import '../../resources/assets/img/favicon.png';
@@ -48,7 +48,7 @@ class App extends Component {
   //인터셉터 기능
   componentDidMount() {
 
-    if (window.location.pathname === ('/board/boardlist') ||
+    if (
       window.location.pathname === ('/member/memberinfo') ||
       window.location.pathname === ('/board/boardregist')) {
 
@@ -102,14 +102,14 @@ class App extends Component {
             <Route path="/board/boardList" Component={boardList} />
             <Route path="/board/boardPage" Component={boardPage} />
           </Routes> */}
-        <Route exact path='/' component={mainView} />
-        <Route path='/popup/popupList' component={popupList} />
-        <Route path='/popup/popupRead/:sno' component={popupRead} />
-        <Route path='/board/boardList' component={boardList} />
-        <Route path='/board/boardPage/:bno' component={boardPage} />
-        <Route path='/board/boardRegist' component={boardRegist} />
-        <Route path="/login" component={login} />
-        <Route path="/join" component={join} />
+        <Route exact path='/' component={MainView} />
+        <Route path='/popup/popupList' component={PopupList} />
+        <Route path='/popup/popupRead/:sno' component={PopupRead} />
+        <Route path='/board/boardList' component={BoardList} />
+        <Route path='/board/boardPage/:bno' component={BoardPage} />
+        <Route path='/board/boardRegist' component={BoardRegist} />
+        <Route path="/login" component={Login} />
+        <Route path="/join" component={Join} />
         <Footer />
       </div>
     );
