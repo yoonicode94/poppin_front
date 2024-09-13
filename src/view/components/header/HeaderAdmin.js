@@ -22,26 +22,6 @@ class Header extends Component {
             $(".fixed-top").hide()
         }
 
-        if (sessionStorage.getItem("sessionLogin") != undefined) {
-            this.userInfo = sessionStorage.getItem("sessionLogin")
-            axios.post("http://localhost:8080/member/sessionJwtLogin", {
-                sessionLogin: this.userInfo
-            })
-                .then(response => {
-                    var memberInfo = JSON.parse(response.data.userInfo);
-                    alert(memberInfo);
-                    this.setState({ usernm: memberInfo.login[0].mid });
-                }).catch(error => {
-                    alert("작업중 오류가 발생하였습니다.");
-                });
-
-            $("#notLogin").hide()
-            $("#isLogin").show()
-        } else {
-            $("#notLogin").show()
-            $("#isLogin").hide()
-        }
-
         var cookie_userid = cookie.load('userid')
         var cookie_usernm = cookie.load('username')
         var cookie_password = cookie.load('userpassword')
