@@ -33,11 +33,11 @@ class Header extends Component {
                             </li>
 
                             <li class="nav-item">
-                                <a id="popupstore" class="nav-link" href="/popup/popuplist">팝업스토어</a>
+                                <a id="popupstore" class="nav-link" href="/popup/popupList">팝업스토어</a>
                             </li>
 
                             <li class="nav-item">
-                                <a id="board" class="nav-link" href="/boardlist">게시판</a>
+                                <a id="board" class="nav-link" href="/board/boardlist">게시판</a>
                             </li>
 
 

@@ -1,6 +1,7 @@
 
 import '../../App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+/* import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; */
+import { Route } from 'react-router-dom';
 import React, { Component } from 'react';
 
 //header
@@ -19,6 +20,7 @@ import mainView from './mainView';
 //게시판 
 import boardList from './board/boardList';
 import boardPage from './board/boardPage';
+import boardRegist from './board/boardRegist';
 
 //css
 import '../../resources/assets/img/favicon.png';
@@ -42,13 +44,19 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderAdmin />
-          <Routes>
+          {/* <Routes>
             <Route exact path="/" Component={mainView}/>
             <Route path="/popup/popupList" Component={popupList} />
-            <Route path="/popup/popupRead" Component={popupRead} />
-            <Route path="/boardList" Component={boardList} />
-            <Route path="/boardPage" Component={boardPage} />
-          </Routes>
+            <Route path="/popup/popupRead/:sno" Component={popupRead} />
+            <Route path="/board/boardList" Component={boardList} />
+            <Route path="/board/boardPage" Component={boardPage} />
+          </Routes> */}
+          <Route exact path='/' component={mainView}/>
+          <Route path='/popup/popupList' component={popupList} />
+          <Route path='/popup/popupRead/:sno' component={popupRead} />
+          <Route path='/board/boardList' component={boardList} />
+          <Route path='/board/boardPage/:bno' component={boardPage} />
+          <Route path='/board/boardRegist' component={boardRegist} />
         <Footer/>
         
       </div>
