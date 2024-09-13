@@ -1,6 +1,6 @@
 import '../../App.css'
 /* import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; */
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import React, { Component } from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -102,14 +102,16 @@ class App extends Component {
             <Route path="/board/boardList" Component={boardList} />
             <Route path="/board/boardPage" Component={boardPage} />
           </Routes> */}
-        <Route exact path='/' component={MainView} />
-        <Route path='/popup/popupList' component={PopupList} />
-        <Route path='/popup/popupRead/:sno' component={PopupRead} />
-        <Route path='/board/boardList' component={BoardList} />
-        <Route path='/board/boardPage/:bno' component={BoardPage} />
-        <Route path='/board/boardRegist' component={BoardRegist} />
-        <Route path="/login" component={Login} />
-        <Route path="/join" component={Join} />
+        <Routes>
+        <Route exact path='/' Component={MainView} />
+        <Route path='/popup/popupList' Component={PopupList} />
+        <Route path='/popup/popupRead/:sno' Component={PopupRead} />
+        <Route path='/board/boardList' Component={BoardList} />
+        <Route path='/board/boardPage/:bno' Component={BoardPage} />
+        <Route path='/board/boardRegist' Component={BoardRegist} />
+        <Route path="/login" Component={Login} />
+        <Route path="/join" Component={Join} />
+        </Routes>
         <Footer />
       </div>
     );
