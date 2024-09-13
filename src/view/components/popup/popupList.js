@@ -1,45 +1,103 @@
-import { Component } from "react";
+import React, { Component } from "react";
+import axios from "axios";
+import {Link} from 'react-router-dom';
 
-class popupList extends Component {
+class PopupList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
-        }
+            responseFPList: null,  // Use null for uninitialized state
+            append_FPList: [],
+        };
     }
+
+    componentDidMount() {
+        this.callFloatPopulListApi();
+    }
+
+    callFloatPopulListApi = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/popup/popupList');
+            this.setState({ responseFPList: response.data }, () => {
+                // Update append_FPList after responseFPList is set
+                this.setState({ append_FPList: this.FloatPopulListAppend() });
+            });
+        } catch (error) {
+            alert(`Error fetching data: ${error.message}`);
+        }
+    };
+
+    FloatPopulListAppend = () => {
+        const { responseFPList } = this.state;
+        if (!responseFPList || !responseFPList.popupList) {
+            return <div>No data available</div>;
+        }
+
+        return responseFPList.popupList.map((pop) => (
+            <div className="col-md-4" key={pop.sno}>
+                <div className="card-box-a card-shadow">
+                    <div className="hiddenClass">
+                        <div className="img-box-a">
+                            <img src={pop.simg} alt="" className="img-a img-fluid" />
+                        </div>
+                        <div className="card-overlay">
+                            <div className="card-overlay-a-content">
+                                <div className="card-header-a">
+                                    <h2 className="card-title-a">
+                                        <Link to={'/popup/popupRead/'+pop.sno}>{pop.sname}</Link>
+                                    </h2>
+                                </div>
+                                <div className="card-body-a">
+                                    <div className="price-box d-flex"></div>
+                                    <a href="#" className="link-a">
+                                        {pop.sname} <span className="bi bi-chevron-right"></span>
+                                    </a>
+                                </div>
+                                <div className="card-footer-a">
+                                    <ul className="card-info d-flex justify-content-around">
+                                        <li>
+                                            <h4 className="card-info-title">{pop.sdate}</h4>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ));
+    };
 
     render() {
         return (
             <main id="main">
-                <section class="intro-single">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-8">
-                                <div class="title-single-box">
-                                    <h1 class="title-single">진행중인 팝업스토어</h1>
-                                    <span class="color-text-a">골라골라</span>
+                <section className="intro-single">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 col-lg-8">
+                                <div className="title-single-box">
+                                    <h1 className="title-single">진행중인 팝업스토어</h1>
+                                    <span className="color-text-a">골라골라</span>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-lg-4">
-                                <nav aria-label="breadcrumb"
-                                    class="breadcrumb-box d-flex justify-content-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">홈</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            팝업스토어</li>
+                            <div className="col-md-12 col-lg-4">
+                                <nav aria-label="breadcrumb" className="breadcrumb-box d-flex justify-content-lg-end">
+                                    <ol className="breadcrumb">
+                                        <li className="breadcrumb-item"><a href="#">홈</a></li>
+                                        <li className="breadcrumb-item active" aria-current="page">팝업스토어</li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="property-grid grid">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="grid-option">
+                <section className="property-grid grid">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <div className="grid-option">
                                     <form>
-                                        <select class="custom-select">
+                                        <select className="custom-select">
                                             <option selected>All</option>
                                             <option value="1">New to Old</option>
                                             <option value="2">For Rent</option>
@@ -48,43 +106,13 @@ class popupList extends Component {
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card-box-a card-shadow">
-                                    <div class="img-box-a">
-                                        <img src="${popupVO.simg}" alt="" class="img-a img-fluid" />
-                                    </div>
-                                    <div class="card-overlay">
-                                        <div class="card-overlay-a-content">
-                                            <div class="card-header-a">
-                                                <h2 class="card-title-a">
-                                                    <a href="/popup/popupread?sno=${popupVO.sno}">팝업 이름
-                                                    </a>
-                                                </h2>
-                                            </div>
-                                            <div class="card-body-a">
-                                                <div class="price-box d-flex"></div>
-                                                <a href="#" class="link-a">개최 장소 <span
-                                                    class="bi bi-chevron-right"></span>
-                                                </a>
-                                            </div>
-                                            <div class="card-footer-a">
-                                                <ul class="card-info d-flex justify-content-around">
-                                                    <li>
-                                                        <h4 class="card-info-title">개최날짜</h4> <span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            {this.state.append_FPList}
                         </div>
                     </div>
                 </section>
-
             </main>
         );
     }
 }
-export default popupList;
+
+export default PopupList;

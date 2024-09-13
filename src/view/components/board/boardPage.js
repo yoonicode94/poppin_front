@@ -1,10 +1,35 @@
 import { Component } from "react";
+import $ from 'jquery';
+import axios from "axios";
+import {Link} from 'react-router-dom';
 
 class boardPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            get_bno: props.match.params.bno,
+        }
+    }
+    
+    componentDidMount(){
+        this.callBoardApi();
+    }
 
+    callBoardApi = async () => {
+        try{
+            await axios.get('http://localhost:8080/board/boardPage/'+this.state.get_bno)
+            .then( response => {
+                var data = response.data.boardPage[0]
+                $('#board_title').text(data.btitle)
+                $('#board_con').text(data.bcon)
+                $('#board_writer').text('작성자: '+data.bwriter)
+                $('#board_date').text('날짜: '+data.bdate)
+                $('#board_cnt').text('조회수: '+data.bcnt)
+                $('#replycntSmall').text('댓글 수: '+data.bccnt)
+            });
+            
+        } catch(error){
+            alert("axios에러");
         }
     }
 
@@ -16,17 +41,17 @@ class boardPage extends Component {
                         <div class="row">
                             <div class="col-md-12 col-lg-8">
                                 <div class="title-single-box">
-                                    <h1 class="title-single"> 게시글 제목</h1>
-                                    <span class="color-text-a">작성자: </span>
+                                    <h1 class="title-single" id="board_title"> 게시글 제목</h1>
+                                    <span class="color-text-a" id="board_writer">작성자: </span>
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-4">
                                 <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
+                                        <li class="breadcrumb-item" id="board_cnt">
                                             조회수:
                                         </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
+                                        <li class="breadcrumb-item active" aria-current="page" id="board_date">
                                             날짜
                                         </li>
                                     </ol>
@@ -39,7 +64,7 @@ class boardPage extends Component {
                     <div class="container">
                         <div class="row">
                             <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                                <div class="post-content color-text-a">
+                                <div class="post-content color-text-a" id="board_con">
                                     내용
                                 </div>
                                 <div class="box-footer">
@@ -51,7 +76,7 @@ class boardPage extends Component {
                                         <ul class="list-inline socials">
 
                                             <li>
-                                                <button class="green-button btn button-text" type="submit" id="goListBtn">게시판 목록</button>
+                                            <Link to={'/board/boardList'}><button class="green-button btn button-text" id="goListBtn">게시판 목록</button></Link>
                                                 <button class="green-button btn button-text" type="submit" id="modifyBtn">게시글 수정</button>
                                                 <button class="green-button2 btn button-text" type="submit" id="removeBtn">게시글 삭제</button>
                                             </li>

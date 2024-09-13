@@ -1,4 +1,8 @@
 import '../../App.css'
+<<<<<<< HEAD
+=======
+/* import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; */
+>>>>>>> c14ca67966908634dff95c8286db2ed8e4828d3b
 import { Route } from 'react-router-dom';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -20,6 +24,7 @@ import mainView from './mainView';
 //게시판 
 import boardList from './board/boardList';
 import boardPage from './board/boardPage';
+import boardRegist from './board/boardRegist';
 
 //회원기능
 import join from './member/join';
@@ -93,6 +98,7 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderAdmin />
+<<<<<<< HEAD
         <Route exact path="/" component={mainView} />
         <Route path="/popup/popuplist" component={popupList} />
         <Route path="/popup/popupread" component={popupRead} />
@@ -101,6 +107,23 @@ class App extends Component {
         <Route path="/login" component={login} />
         <Route path="/join" component={join} />
         <Footer />
+=======
+          {/* <Routes>
+            <Route exact path="/" Component={mainView}/>
+            <Route path="/popup/popupList" Component={popupList} />
+            <Route path="/popup/popupRead/:sno" Component={popupRead} />
+            <Route path="/board/boardList" Component={boardList} />
+            <Route path="/board/boardPage" Component={boardPage} />
+          </Routes> */}
+          <Route exact path='/' component={mainView}/>
+          <Route path='/popup/popupList' component={popupList} />
+          <Route path='/popup/popupRead/:sno' component={popupRead} />
+          <Route path='/board/boardList' component={boardList} />
+          <Route path='/board/boardPage/:bno' component={boardPage} />
+          <Route path='/board/boardRegist' component={boardRegist} />
+        <Footer/>
+        
+>>>>>>> c14ca67966908634dff95c8286db2ed8e4828d3b
       </div>
     );
   }
