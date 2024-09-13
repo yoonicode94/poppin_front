@@ -64,6 +64,7 @@
 /* /======================================================
                      회원정보 style.css
 ======================================================/ */
+
 .main-info {
 	margin-top: 60px;
 }
@@ -362,7 +363,7 @@
 }
 
 button.close {
-	-webkit-appearance: none;
+	--webkit-appearance: none;
 	padding: 0;
 	cursor: pointer;
 	background: 0 0;

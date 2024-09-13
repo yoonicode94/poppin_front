@@ -1,7 +1,8 @@
-
 import '../../App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import React, { Component } from 'react';
+import axios from 'axios';
+import cookie from 'react-cookies';
 
 //header
 import HeaderAdmin from './header/HeaderAdmin';
@@ -19,6 +20,10 @@ import mainView from './mainView';
 //게시판 
 import boardList from './board/boardList';
 import boardPage from './board/boardPage';
+
+//회원기능
+import join from './member/join';
+import login from './member/login';
 
 //css
 import '../../resources/assets/img/favicon.png';
@@ -38,19 +43,64 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+
+    if (window.location.pathname === ('/boardlist') ||
+      window.location.pathname === ('/member/memberinfo')) {
+      if (sessionStorage.getItem("sessionLogin") != undefined) {
+        return;
+      }
+      axios.post('http://localhost:8080/member/jwtChk', {
+        token1: cookie.load('userid')
+        , token2: cookie.load('username')
+      })
+        .then(response => {
+          this.state.userid = response.data.token1
+          let password = cookie.load('userpassword')
+          if (password !== undefined) {
+            axios.post('http://localhost:8080/member/jwtLogin', {
+              mid: this.state.userid,
+              mpw: password
+            })
+              .then(response => {
+                if (response.data.jwtLogin[0].mid === undefined) {
+                  this.noPermission()
+                }
+              })
+              .catch(error => {
+                this.noPermission()
+              });
+          } else {
+            this.noPermission()
+          }
+        })
+        .catch(response => this.noPermission());
+    }
+  }
+
+  noPermission = (e) => {
+    this.remove_cookie();
+    window.location.href = '/login';
+  };
+
+  remove_cookie = (e) => {
+    cookie.remove('userid', { path: '/' });
+    cookie.remove('username', { path: '/' });
+    cookie.remove('userpassword', { path: '/' });
+  }
+
   render() {
     return (
       <div className="App">
         <HeaderAdmin />
-          <Routes>
-            <Route exact path="/" Component={mainView}/>
-            <Route path="/popup/popupList" Component={popupList} />
-            <Route path="/popup/popupRead" Component={popupRead} />
-            <Route path="/boardList" Component={boardList} />
-            <Route path="/boardPage" Component={boardPage} />
-          </Routes>
-        <Footer/>
-        
+        <Route exact path="/" component={mainView} />
+        <Route path="/popup/popuplist" component={popupList} />
+        <Route path="/popup/popupread" component={popupRead} />
+        <Route path="/boardlist" component={boardList} />
+        <Route path="/boardpage" component={boardPage} />
+        <Route path="/login" component={login} />
+        <Route path="/join" component={join} />
+        <Footer />
       </div>
     );
   }

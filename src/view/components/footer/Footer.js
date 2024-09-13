@@ -1,5 +1,5 @@
 import { Component } from "react";
-
+import $ from 'jquery';
 //js
 
 
@@ -11,9 +11,22 @@ class Footer extends Component {
         }
     }
 
+    componentDidMount() {
+
+        if(
+            window.location.pathname.includes("/login")||
+            window.location.pathname.includes("/join")
+        ){
+            $("#footer").hide()
+        }
+
+    }
+
+
     render() {
         return (
-            <><section class="section-footer">
+            <div id="footer">
+                <section class="section-footer">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 col-md-4">
@@ -154,8 +167,9 @@ class Footer extends Component {
                     </div>
                 </footer>
                 
-            </>
+            </div>
         );
     }
 }
+
 export default Footer;
