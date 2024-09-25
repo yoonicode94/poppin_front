@@ -2,11 +2,9 @@ import '../../App.css'
 /* import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; */
 import { Route, Routes } from 'react-router-dom';
 import React, { Component } from 'react';
-import axios from 'axios';
-import cookie from 'react-cookies';
 
 //header
-import HeaderAdmin from './Header/HeaderAdmin';
+import HeaderAdmin from './Header/Header';
 
 //footer
 import Footer from './Footer/Footer';

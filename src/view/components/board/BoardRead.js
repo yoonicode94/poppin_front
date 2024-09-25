@@ -61,7 +61,7 @@ const BoardRead = () => {
             const res = await axios.post('http://localhost:8080/board/boardDelete', { bno });
             if (res.data === "succ") {
                 Swal.fire('삭제가 완료되었습니다.', '', 'success').then(() => {
-                    navigate('/board/boardList');
+                    navigate('/board/boardlist');
                 });
             }
         } catch (error) {
