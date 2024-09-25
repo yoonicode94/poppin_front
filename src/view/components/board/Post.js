@@ -1,8 +1,9 @@
 // Post.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Post = ({ boardData, isAuthor, boardDelete }) => {
+
     return (
         <section className="intro-single">
             <div className="container">
@@ -34,14 +35,14 @@ const Post = ({ boardData, isAuthor, boardDelete }) => {
                                 <div className="post-share">
                                     <ul className="list-inline socials">
                                         <li>
-                                            <Link to="/board/boardList">
+                                            <a href="/board/boardList">
                                                 <button className="green-button btn button-text">게시판 목록</button>
-                                            </Link>
+                                            </a>
                                             {isAuthor && (
                                                 <>
-                                                    <Link to="/board/boardmodify" state={{ bno: boardData.bno }}>
+                                                    <a href={`/board/boardmodify?bno=${boardData.bno}`}>
                                                         <button className="green-button btn button-text">게시글 수정</button>
-                                                    </Link>
+                                                    </a>
                                                     <button className="green-button2 btn button-text" onClick={boardDelete}>게시글 삭제</button>
                                                 </>
                                             )}

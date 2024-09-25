@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -71,7 +70,8 @@ const Header = (props) => {
         // 인터셉터
         if (
           window.location.pathname === '/member/memberinfo' ||
-          window.location.pathname === '/board/boardregist') {
+          window.location.pathname === '/board/boardregist' ||
+          window.location.pathname.includes('/board/boardmodify')) {
     
           axios.post('http://localhost:8080/member/jwtChk', {
             token1: cookie.load('userid'),

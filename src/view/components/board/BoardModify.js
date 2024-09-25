@@ -1,48 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
 import Swal from 'sweetalert2';
 
 const BoardModify = () => {
-    const navigate = useNavigate();
     const location = useLocation();
-    const { bno } = location.state || {};
-    
+    const navigate = useNavigate(); // useNavigate 사용
+    const queryParams = new URLSearchParams(location.search);
+    const bno = queryParams.get('bno');
+
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
+    const [mid, setMid] = useState('');
+    const [isAuthorized, setIsAuthorized] = useState(false);
 
-    // 사용자 아이디 가져오기
-    useEffect(() => {
-        const callSessionInfoApi = async () => {
-            try {
-                const response = await axios.post('http://localhost:8080/member/jwtChk', {
-                    token1: cookie.load('userid'),
-                    token2: cookie.load('username')
-                });
-                setUserId(response.data.token1);
-            } catch (error) {
-                console.log('작업 중 오류가 발생하였습니다.');
-            }
-        };
-        callSessionInfoApi();
-    }, []);
+    // 사용자 아이디 가져오는 코드
+    const callSessionInfoApi = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/member/jwtChk', {
+                token1: cookie.load('userid'),
+                token2: cookie.load('username')
+            });
+            setUserId(response.data.token1);
+        } catch (error) {
+            console.log('작업중 오류가 발생하였습니다.');
+        }
+    };
 
     // 게시글 정보 가져오기
     useEffect(() => {
-        const callboardInfoApi = async () => {
+        const callBoardInfoApi = async () => {
             try {
                 const res = await axios.get(`http://localhost:8080/board/boardPage/${bno}`);
                 const data = res.data.boardPage[0];
                 setTitle(data.btitle);
                 setContent(data.bcon);
+                setMid(data.bwriter);
             } catch (error) {
                 alert("게시글을 못 받아왔습니다.");
             }
         };
-        callboardInfoApi();
+        callBoardInfoApi();
     }, [bno]);
+
+    useEffect(() => {
+        callSessionInfoApi();
+    }, []);
+
+    useEffect(() => {
+        if (userId && mid && userId !== mid) {
+            navigate('/board/boardlist'); // 권한이 없으면 이동
+        } else if (userId && mid) {
+            setIsAuthorized(true);
+        }
+    }, [userId, mid, navigate]);
 
     const submitClick = async (e) => {
         e.preventDefault();
@@ -71,7 +84,7 @@ const BoardModify = () => {
                 if (response.data === "succ") {
                     sweetalert('수정이 완료되었습니다.', '', 'success', '확인');
                     setTimeout(() => {
-                        navigate('/board/boardlist');
+                        navigate('/board/boardlist'); // 수정 후 이동
                     }, 1500);
                 }
             } catch (error) {
@@ -82,12 +95,16 @@ const BoardModify = () => {
 
     const sweetalert = (title, contents, icon, confirmButtonText) => {
         Swal.fire({
-            title: title,
+            title,
             text: contents,
-            icon: icon,
-            confirmButtonText: confirmButtonText
+            icon,
+            confirmButtonText
         });
     };
+
+    if (!isAuthorized) {
+        return null; // 권한이 없을 경우 렌더링하지 않음
+    }
 
     return (
         <main id="main">

@@ -22,7 +22,7 @@ const Footer = (props) => {
         if (
             window.location.pathname === '/member/memberinfo' ||
             window.location.pathname === '/board/boardregist' ||
-            window.location.pathname === '/board/boardRegist') {
+            window.location.pathname === '/board/boardmodify') {
 
             axios.post('http://localhost:8080/member/jwtChk', {
                 token1: cookie.load('userid'),
