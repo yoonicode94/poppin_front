@@ -22,6 +22,8 @@ import MainView from './mainView';
 import BoardList from './Board/BoardList';
 import BoardPage from './Board/BoardPage';
 import BoardRegist from './Board/BoardRegist';
+import BoardModify from './Board/BoardModify';
+import BoardRead from './Board/BoardRead';
 
 //회원기능
 import Join from './Member/Join';
@@ -50,7 +52,7 @@ class App extends Component {
 
     if (
       window.location.pathname === ('/member/memberinfo') ||
-      window.location.pathname === ('/board/boardregist')) {
+      window.location.pathname === ('/board/boardRegist') ) {
 
       axios.post('http://localhost:8080/member/jwtChk', {
         token1: cookie.load('userid'),
@@ -104,11 +106,13 @@ class App extends Component {
           </Routes> */}
         <Routes>
         <Route exact path='/' Component={MainView} />
-        <Route path='/popup/popupList' Component={PopupList} />
-        <Route path='/popup/popupRead/:sno' Component={PopupRead} />
-        <Route path='/board/boardList' Component={BoardList} />
-        <Route path='/board/boardPage/:bno' Component={BoardPage} />
-        <Route path='/board/boardRegist' Component={BoardRegist} />
+        <Route path='/popup/popuplist' Component={PopupList} />
+        <Route path='/popup/popupread/:sno' Component={PopupRead} />
+        <Route path='/board/boardlist' Component={BoardList} />
+        {/* <Route path='/board/boardPage/:bno' Component={BoardPage} /> */}
+        <Route path='/board/boardread/:bno' Component={BoardRead} />
+        <Route path='/board/boardregist' Component={BoardRegist} />
+        <Route path='/board/boardmodify' Component={BoardModify} />
         <Route path="/login" Component={Login} />
         <Route path="/join" Component={Join} />
         </Routes>
