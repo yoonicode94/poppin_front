@@ -82,6 +82,7 @@ class App extends Component {
           <Route path='/board/boardlist' Component={BoardList} />
           <Route path='/board/boardread/:bno' Component={BoardRead} />
           <Route path='/board/boardregist' Component={BoardRegist} />
+          <Route path='/board/boardmodify' Component={BoardModify} />
           <Route path='/goods/goodspopuplist' Component={GoodsPopupList} />
           <Route path='/goods/goodslist/:sno' Component={GoodsList} />
           <Route path='/goods/goodsdetail/:sno/:pno' Component={GoodsDetail} />

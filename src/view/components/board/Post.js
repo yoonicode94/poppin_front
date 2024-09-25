@@ -39,7 +39,7 @@ const Post = ({ boardData, isAuthor, boardDelete }) => {
                                             </Link>
                                             {isAuthor && (
                                                 <>
-                                                    <Link to="/board/boardModify" state={{ bno: boardData.bno }}>
+                                                    <Link to="/board/boardmodify" state={{ bno: boardData.bno }}>
                                                         <button className="green-button btn button-text">게시글 수정</button>
                                                     </Link>
                                                     <button className="green-button2 btn button-text" onClick={boardDelete}>게시글 삭제</button>
