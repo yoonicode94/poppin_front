@@ -68,7 +68,9 @@ const GoodsDetail = () => {
     }
 
     useEffect(() => {
-        callMemberInfoApi();
+        if(cookie.load("userid") !== undefined){
+            callMemberInfoApi();
+        }
         callGoodsDetailApi();
         callReviewListApi();
     }, [quantity, grade, currentMno, modifyRno, modifygrade, modifygrade_list]);
