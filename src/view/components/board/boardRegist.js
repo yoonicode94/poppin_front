@@ -14,6 +14,29 @@ const BoardRegist = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    useEffect(() => {
+
+        var cookie_userid = cookie.load('userid')
+        var cookie_usernm = cookie.load('username')
+        var cookie_password = cookie.load('userpassword')
+
+        if (cookie_userid != undefined) {
+            const expires = new Date()
+            expires.setMinutes(expires.getMinutes() + 60)
+
+            cookie.save('userid', cookie_userid
+                , { path: '/', expires })
+            cookie.save('username', cookie_usernm
+                , { path: '/', expires })
+            cookie.save('userpassword', cookie_password
+                , { path: '/', expires })
+
+            $("#main").show()
+        } else {
+            $("#main").hide()
+        }
+        callSessionInfoApi()
+    }, []);
 
     //사용자 아이디 가져오는 코드
     const callSessionInfoApi = () => {
@@ -28,6 +51,7 @@ const BoardRegist = () => {
         .catch(error => {
           console.log('작업중 오류가 발생하였습니다.');
         });
+
     };
 
     useEffect(() => {
@@ -61,7 +85,7 @@ const BoardRegist = () => {
                 if (response.data === "succ") {
                     sweetalert('등록되었습니다.', '', 'success', '확인');
                     setTimeout(() => {
-                        navigate('/board/boardList');
+                        navigate('/board/boardlist');
                     }, 1500);
                 }
             } catch (error) {
@@ -69,6 +93,7 @@ const BoardRegist = () => {
             }
         }
     };
+
 
     const sweetalert = (title, contents, icon, confirmButtonText) => {
         Swal.fire({
@@ -81,7 +106,7 @@ const BoardRegist = () => {
 
 
     return (
-        <main id="main">
+        <main id="main" style={{display: "none"}}>
             <section className="contact">
                 <div className="container">
                     <div className="row">

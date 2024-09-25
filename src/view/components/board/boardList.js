@@ -198,11 +198,12 @@ const BoardList = () => {
                             </div>
                             <div className="box-footer">
                                 <div className="list-registBtn">
-                                    <Link to={'/board/boardRegist'}>
+
+                                    <a href='/board/boardregist'>
                                         <button className="green-button btn button-text" id="list-registBtn">
                                             <strong>작성하기</strong>
                                         </button>
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>

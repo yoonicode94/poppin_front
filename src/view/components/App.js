@@ -16,7 +16,9 @@ import PopupList from './Popup/PopupList';
 import PopupRead from './Popup/PopupRead';
 
 //main 
-import MainView from './mainView';
+
+import MainView from './MainView';
+
 
 //게시판 
 import BoardList from './Board/BoardList';
@@ -28,6 +30,11 @@ import BoardRead from './Board/BoardRead';
 import Join from './Member/Join';
 import Login from './Member/Login';
 
+//굿즈
+import GoodsPopupList from './Goods/GoodsPopupList';
+import GoodsList from './Goods/GoodsList';
+import GoodsDetail from './Goods/GoodsDetail';
+
 //css
 import '../../resources/assets/img/favicon.png';
 import '../../resources/assets/img/apple-touch-icon.png';
@@ -37,85 +44,51 @@ import '../../resources/assets/vendor/bootstrap-icons/bootstrap-icons.css';
 import '../../resources/assets/vendor/swiper/swiper-bundle.min.css';
 import '../../resources/assets/css/style.css';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isVisible: false
     }
   }
 
-  //인터셉터 기능
-  componentDidMount() {
 
+  static getDerivedStateFromProps(props, state) {
+
+    // 헤더, 푸터 보이게 할 페이지 경로설정
     if (
-      window.location.pathname === ('/member/memberinfo') ||
-      window.location.pathname === ('/board/boardRegist') ) {
-
-      axios.post('http://localhost:8080/member/jwtChk', {
-        token1: cookie.load('userid'),
-        token2: cookie.load('username')
-      })
-        .then(response => {
-          this.state.userid = response.data.token1
-          let password = cookie.load('userpassword')
-          if (password !== undefined) {
-            axios.post('http://localhost:8080/member/jwtLogin', {
-              mid: this.state.userid,
-              mpw: password
-            })
-              .then(response => {
-                if (response.data.jwtLogin[0].mid === undefined) {
-                  this.noPermission()
-                }
-              })
-              .catch(error => {
-                this.noPermission()
-              });
-          } else {
-            this.noPermission()
-          }
-        })
-        .catch(response => this.noPermission());
+      window.location.pathname === "/" ||
+      window.location.pathname === "/goods/goodspopuplist" ||
+      window.location.pathname.includes("/goods/goodslist") ||
+      window.location.pathname.includes("/goods/goodsdetail") ||
+      window.location.pathname === "/popup/popuplist" ||
+      window.location.pathname === "/board/boardlist"
+    ) {
+      return {
+        isVisible: true
+      };
     }
-  }
-
-  noPermission = (e) => {
-    this.remove_cookie();
-    window.location.href = '/login';
-  };
-
-  remove_cookie = (e) => {
-    cookie.remove('userid', { path: '/' });
-    cookie.remove('username', { path: '/' });
-    cookie.remove('userpassword', { path: '/' });
   }
 
   render() {
     return (
       <div className="App">
-        <HeaderAdmin />
-        {/* <Routes>
-            <Route exact path="/" Component={mainView}/>
-            <Route path="/popup/popupList" Component={popupList} />
-            <Route path="/popup/popupRead/:sno" Component={popupRead} />
-            <Route path="/board/boardList" Component={boardList} />
-            <Route path="/board/boardPage" Component={boardPage} />
-          </Routes> */}
+
+        <HeaderAdmin isVisible={this.state.isVisible} />
         <Routes>
-        <Route exact path='/' Component={MainView} />
-        <Route path='/popup/popuplist' Component={PopupList} />
-        <Route path='/popup/popupread/:sno' Component={PopupRead} />
-        <Route path='/board/boardlist' Component={BoardList} />
-        {/* <Route path='/board/boardPage/:bno' Component={BoardPage} /> */}
-        <Route path='/board/boardread/:bno' Component={BoardRead} />
-        <Route path='/board/boardregist' Component={BoardRegist} />
-        <Route path='/board/boardmodify' Component={BoardModify} />
-        <Route path="/login" Component={Login} />
-        <Route path="/join" Component={Join} />
+          <Route exact path='/' Component={MainView} />
+          <Route path='/popup/popuplist' Component={PopupList} />
+          <Route path='/popup/popupread/:sno' Component={PopupRead} />
+          <Route path='/board/boardlist' Component={BoardList} />
+          <Route path='/board/boardread/:bno' Component={BoardRead} />
+          <Route path='/board/boardregist' Component={BoardRegist} />
+          <Route path='/goods/goodspopuplist' Component={GoodsPopupList} />
+          <Route path='/goods/goodslist/:sno' Component={GoodsList} />
+          <Route path='/goods/goodsdetail/:sno/:pno' Component={GoodsDetail} />
+          <Route path="/login" Component={Login} />
+          <Route path="/join" Component={Join} />
         </Routes>
-        <Footer />
+        <Footer isVisible={this.state.isVisible} />
       </div>
     );
   }
