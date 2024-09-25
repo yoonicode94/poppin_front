@@ -20,8 +20,9 @@ import MainView from './MainView';
 
 //게시판 
 import BoardList from './Board/BoardList';
-import BoardPage from './Board/BoardPage';
 import BoardRegist from './Board/BoardRegist';
+import BoardModify from './Board/BoardModify';
+import BoardRead from './Board/BoardRead';
 
 //회원기능
 import Join from './Member/Join';
@@ -40,8 +41,6 @@ import '../../resources/assets/vendor/bootstrap/css/bootstrap.min.css';
 import '../../resources/assets/vendor/bootstrap-icons/bootstrap-icons.css';
 import '../../resources/assets/vendor/swiper/swiper-bundle.min.css';
 import '../../resources/assets/css/style.css';
-
-
 
 class App extends Component {
   constructor(props) {
@@ -77,7 +76,7 @@ class App extends Component {
           <Route path='/popup/popuplist' Component={PopupList} />
           <Route path='/popup/popupread/:sno' Component={PopupRead} />
           <Route path='/board/boardlist' Component={BoardList} />
-          <Route path='/board/boardpage/:bno' Component={BoardPage} />
+          <Route path='/board/boardread/:bno' Component={BoardRead} />
           <Route path='/board/boardregist' Component={BoardRegist} />
           <Route path='/goods/goodspopuplist' Component={GoodsPopupList} />
           <Route path='/goods/goodslist/:sno' Component={GoodsList} />

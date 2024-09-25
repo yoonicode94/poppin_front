@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -67,6 +68,7 @@ const Header = (props) => {
 
     const checkUserPermission = () => {
 
+        // 인터셉터
         if (
           window.location.pathname === '/member/memberinfo' ||
           window.location.pathname === '/board/boardregist') {
