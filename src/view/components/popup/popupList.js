@@ -12,7 +12,7 @@ class PopupList extends Component {
     }
 
     componentDidMount() {
-        this.callFloatPopulListApi();
+        //this.callFloatPopulListApi();
     }
 
     callFloatPopulListApi = async () => {

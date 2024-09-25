@@ -1,13 +1,55 @@
-import { Component } from "react";
+import React, { useEffect, useState } from 'react';
+import $ from 'jquery';
+import axios from 'axios';
+import cookie from 'react-cookies';
 
-const boardRegist = () =>{
+const BoardRegist = () => {
+
+    const [username, setUserName] = useState('');
+
+    useEffect(() => {
+
+        var cookie_userid = cookie.load('userid')
+        var cookie_usernm = cookie.load('username')
+        var cookie_password = cookie.load('userpassword')
+
+        if (cookie_userid != undefined) {
+            const expires = new Date()
+            expires.setMinutes(expires.getMinutes() + 60)
+
+            cookie.save('userid', cookie_userid
+                , { path: '/', expires })
+            cookie.save('username', cookie_usernm
+                , { path: '/', expires })
+            cookie.save('userpassword', cookie_password
+                , { path: '/', expires })
+
+            $("#main").show()
+        } else {
+            $("#main").hide()
+        }
+        callSessionInfoApi()
+    }, []);
+
+    const callSessionInfoApi = () => {
+        axios.post('http://localhost:8080/member/jwtChk', {
+            token1: cookie.load('userid')
+            , token2: cookie.load('username')
+        })
+            .then(response => {
+                setUserName(response.data.token2);
+            })
+            .catch(error => {
+                console.log('작업중 오류가 발생하였습니다.');
+            });
+    }
 
     const submitClick = () => {
 
     };
 
     return(
-        <main id="main">
+        <main id="main" style={{display: "none"}}>
             <section class="contact">
                 <div class="container">
                     <div class="row">
@@ -65,4 +107,4 @@ const boardRegist = () =>{
         </main>
     );
 }
-export default boardRegist;
+export default BoardRegist;

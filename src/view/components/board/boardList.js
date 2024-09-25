@@ -14,7 +14,7 @@ class BoardList extends Component {
     }
 
     componentDidMount() {
-        this.callBoardAPI();
+        //this.callBoardAPI();
     }
 
     callBoardAPI = async () => {
@@ -153,11 +153,11 @@ class BoardList extends Component {
                                 </div>
                                 <div className="box-footer">
                                     <div className="list-registBtn">
-                                        <Link to={'/board/boardRegist'}>
+                                        <a href='/board/boardRegist'>
                                             <button className="green-button btn button-text" id="list-registBtn">
                                                 <strong>작성하기</strong>
                                             </button>
-                                        </Link>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
