@@ -71,7 +71,7 @@ const BoardModify = () => {
                 if (response.data === "succ") {
                     sweetalert('수정이 완료되었습니다.', '', 'success', '확인');
                     setTimeout(() => {
-                        navigate('/board/boardList');
+                        navigate('/board/boardlist');
                     }, 1500);
                 }
             } catch (error) {

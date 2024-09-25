@@ -87,7 +87,7 @@ const BoardPage = () => {
             if (res.data === "succ") {
                 sweetalert('삭제가 완료되었습니다.', '', 'success', '확인');
                 setTimeout(() => {
-                    navigate('/board/boardList');
+                    navigate('/board/boardlist');
                 }, 1500);
             }
         }catch(error){
@@ -284,13 +284,13 @@ const BoardPage = () => {
                                 <div className="post-share">
                                     <ul className="list-inline socials">
                                         <li>
-                                            <Link to="/board/boardList">
+                                            <Link to="/board/boardlist">
                                                 <button className="green-button btn button-text">게시판 목록</button>
                                             </Link>
                                             {isAuthor && (
-                                                <> <Link to="/board/boardModify" state={{bno}}>
+                                                <> <a href="/board/boardmodify" state={{bno}}>
                                                 <button className="green-button btn button-text">게시글 수정</button>
-                                                </Link>
+                                                </a>
                                                 <button className="green-button2 btn button-text" onClick={boardDelete}>게시글 삭제</button>
                                                 </>
                                             )}
