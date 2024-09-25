@@ -20,7 +20,6 @@ import MainView from './mainView';
 
 //게시판 
 import BoardList from './Board/BoardList';
-import BoardPage from './Board/BoardPage';
 import BoardRegist from './Board/BoardRegist';
 import BoardModify from './Board/BoardModify';
 import BoardRead from './Board/BoardRead';
