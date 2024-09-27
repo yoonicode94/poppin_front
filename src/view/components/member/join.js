@@ -2,6 +2,7 @@ import React, { } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const Join = () => {
 
@@ -28,11 +29,11 @@ const Join = () => {
 						const result = response.data.idcheck[0].count;
 						console.log(result);
 						if (result > 0) {
-							alert("이미 존재하는 아이디입니다.");
+							sweetalert('이미 존재하는 아이디입니다.', '', 'error', '닫기');
 							$('#mid').addClass('border_validate_err');
 						}
 						else {
-							alert("사용 가능한 아이디입니다.");
+							sweetalert('사용 가능한 아이디입니다.', '', 'success', '닫기');
 							$('#mid').removeClass('border_validate_err');
 						}
 					} catch (error) {
@@ -61,18 +62,18 @@ const Join = () => {
 
 			if (mid_chk === '') {
 				$('#mid').addClass('border_validate_err');
-				alert('아이디를 다시 확인해주세요.')
+				sweetalert('아이디를 다시 확인해주세요.', '', 'error', '닫기');
 				return false;
 			}
 
 			if (mname_chk === '') {
 				$('#mname').addClass('border_validate_err');
-				alert('성명을 입력해주세요.')
+				sweetalert('성명을 입력해주세요.', '', 'error', '닫기');
 				return false;
 			}
 			if (mname_chk.search(/\s/) !== -1) {
 				$('#mname').addClass('border_validate_err');
-				alert('성명에 공백을 제거해 주세요.')
+				sweetalert('성명에 공백을 제거해 주세요.', '', 'error', '닫기');
 				return false;
 			}
 			$('#mname').removeClass('border_validate_err');
@@ -80,20 +81,20 @@ const Join = () => {
 
 			if (mpw_chk === '') {
 				$('#mpw').addClass('border_validate_err');
-				alert('비밀번호를 입력해주세요.')
+				sweetalert('비밀번호를 입력해주세요.', '', 'error', '닫기');
 				return false;
 			}
 			if (mpw_chk !== '') {
 				const str = mpw_chk;
 				if (str.search(/\s/) !== -1) {
 					$('#mpw').addClass('border_validate_err');
-					alert('비밀번호 공백을 제거해 주세요.')
+					sweetalert('비밀번호 공백을 제거해 주세요.', '', 'error', '닫기');
 					return false;
 				}
 				if (!pattern1.test(str) || !pattern2.test(str) || !pattern3.test(str)
 					|| str.length < 8 || str.length > 16) {
 					$('#mpw').addClass('border_validate_err');
-					alert('8~16자 영문 대 소문자\n숫자, 특수문자를 사용하세요.')
+					sweetalert('8~16자 영문 대 소문자\n숫자, 특수문자를 사용하세요.', '', 'error', '닫기');
 					return false;
 				}
 			}
@@ -101,13 +102,13 @@ const Join = () => {
 
 			if (confirmPassword_chk === '') {
 				$('#confirmPassword').addClass('border_validate_err');
-				alert('비밀번호 확인을 입력해주세요.')
+				sweetalert('비밀번호 확인을 입력해주세요.', '', 'error', '닫기');
 				return false;
 			}
 			if (mpw_chk !== confirmPassword_chk) {
 				$('#pwd_val').addClass('border_validate_err');
 				$('#confirmPassword').addClass('border_validate_err');
-				alert('비밀번호가 일치하지 않습니다.')
+				sweetalert('비밀번호가 일치하지 않습니다.', '', 'error', '닫기');
 				return false;
 			}
 			$('#confirmPassword').removeClass('border_validate_err');
@@ -117,7 +118,7 @@ const Join = () => {
 				$('#mcell1').addClass('border_validate_err');
 				$('#mcell2').addClass('border_validate_err');
 				$('#mcell3').addClass('border_validate_err');
-				alert('휴대전화 번호를 입력해주세요.')
+				sweetalert('휴대전화 번호를 입력해주세요.', '', 'error', '닫기');
 				return false;
 			}
 			$('#mcell1').removeClass('border_validate_err');
@@ -126,21 +127,21 @@ const Join = () => {
 
 			if (memail1_chk === '') {
 				$('#memail1').addClass('border_validate_err');
-				alert('이메일 주소를 다시 확인해주세요.')
+				sweetalert('이메일 주소를 다시 확인해주세요.', '', 'error', '닫기');
 				return false;
 			}
 
 
 			if (memail1_chk.search(/\s/) !== -1) {
 				$('#memail1').addClass('border_validate_err');
-				alert('이메일 공백을 제거해 주세요.')
+				sweetalert('이메일 공백을 제거해 주세요.', '', 'error', '닫기');
 				return false;
 			}
 			$('#email_val').removeClass('border_validate_err');
 
 			if (memail2_chk === '') {
 				$('#memail2').addClass('border_validate_err');
-				alert('이메일 주소를 다시 확인해주세요.')
+				sweetalert('이메일 주소를 다시 확인해주세요.', '', 'error', '닫기');
 				return false;
 			}
 			$('#memail2').removeClass('border_validate_err');
@@ -158,7 +159,7 @@ const Join = () => {
 						if (dupli_count !== 0) {
 							$('#memail1').addClass('border_validate_err');
 							$('#memail2').addClass('border_validate_err');
-							alert('이미 존재하는 이메일입니다.')
+							sweetalert('이미 존재하는 이메일입니다.', '', 'error', '닫기');
 						} else {
 							$('#memail1').removeClass('border_validate_err');
 							$('#memail2').removeClass('border_validate_err');
@@ -171,35 +172,39 @@ const Join = () => {
 				.catch(response => { return false; });
 		}
 
-		const fnSignInsert = async () => {
-			var jsonstr = $("form[name='frm']").serialize();
-			jsonstr = decodeURIComponent(jsonstr);
-			var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, '')
-			Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
+	};
 
-			try {
-				const response = await fetch('http://localhost:8080/member/join', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: Json_form,
-				});
-				const body = await response.text();
-				if (body === "succ") {
-					alert('회원가입이 완료되었습니다.')
-					window.location.href = "/login"
-				} else {
-					alert('작업중 오류가 발생하였습니다.');
-				}
-			} catch (error) {
+	const fnSignInsert = async () => {
+		var jsonstr = $("form[name='frm']").serialize();
+		jsonstr = decodeURIComponent(jsonstr);
+		var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, '')
+		Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
+
+		try {
+			const response = await fetch('http://localhost:8080/member/join', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: Json_form,
+			});
+			const body = await response.text();
+			if (body === "succ") {
+				await sweetalert('회원가입이 완료되었습니다.', '', 'success', '닫기');
+				window.location.href = "/login";
+			} else {
 				alert('작업중 오류가 발생하였습니다.');
 			}
+		} catch (error) {
+			alert('작업중 오류가 발생하였습니다.');
 		}
 	};
 
-	const emailKeyDown = () => {
+	const emailKeyDown = (id) => {
 		$('#memail1').removeClass('border_validate_err');
+		if (id === "memail2") {
+			$('#memail2').removeClass('border_validate_err');
+		}
 	};
 
 	const pwdKeyDown = () => {
@@ -218,10 +223,6 @@ const Join = () => {
 		$("#" + id).removeClass('border_validate_err');
 	}
 
-	/*const handleSubmit = (e) => {
-		e.preventDefault();
-	};*/
-
 	const mustNumber = (id) => {
 		$("#" + id).removeClass('border_validate_err');
 		var pattern1 = /[0-9]/;
@@ -230,6 +231,16 @@ const Join = () => {
 			$('#' + id).val(str.substr(0, str.length - 1));
 		}
 	}
+
+	const sweetalert = (title, contents, icon, confirmButtonText) => {
+		return Swal.fire({
+			title,
+			text: contents,
+			icon,
+			confirmButtonText
+		});
+	};
+
 	return (
 
 		<section>
@@ -280,7 +291,7 @@ const Join = () => {
 							<input style={{ width: "50%", display: "inline" }} id="memail1" type="text" class="form-control"
 								name="memail1" placeholder="이메일" onKeyDown={emailKeyDown} />
 							<span style={{ margin: "3%", fontSize: "20px" }}>@</span>
-							<select style={{ height: "38px", width: "37.3%", display: "inline" }} id="memail2" name="memail2" class="form-control">
+							<select style={{ height: "38px", width: "37.3%", display: "inline" }} id="memail2" name="memail2" class="form-control" onChange={() => emailKeyDown("memail2")}>
 								<option value="">선택하세요</option>
 								<option value='naver.com'>naver.com</option>
 								<option value='hanmail.net'>hanmail.net</option>
@@ -292,7 +303,7 @@ const Join = () => {
 							</select>
 						</div>
 
-						<div class="row" style={{ textAlign: "center"}}>
+						<div class="row" style={{ textAlign: "center" }}>
 							<div class="col-xs-12">
 								<div style={{ backgroundColor: "#2eca6a", borderColor: "#2eca6a" }}
 									class="btn btn-primary btn-block btn-flat" onClick={() => submitClick()}>회원가입</div>

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import $ from 'jquery';
+import Swal from 'sweetalert2';
 
 const GoodsDetail = () => {
 
@@ -312,7 +313,7 @@ const GoodsDetail = () => {
             });
             const body = await response.text();
             if (body === "succ") {
-                alert('리뷰가 변경되었습니다.');
+                await sweetalert('리뷰가 변경되었습니다.', '', 'success', '닫기');
                 setModifyRno('');
                 setModifyRcon('');
                 setModifyGrade('');
@@ -325,15 +326,22 @@ const GoodsDetail = () => {
     }
 
     const deleteReview = async (rno) => {
-        const confirm = window.confirm("정말로 삭제하시겠습니까?");
-        if (confirm) {
+        const confirm = await Swal.fire({
+            title: '정말로 삭제하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소'
+        });
+
+        if (confirm.isConfirmed) {
             try {
                 const response = await fetch(`http://localhost:8080/goods/deletereview/${rno}`, {
                     method: 'POST'
                 });
                 const body = await response.text();
                 if (body === "succ") {
-                    alert('리뷰가 삭제되었습니다.');
+                    await sweetalert('리뷰가 삭제되었습니다.', '', 'success', '닫기');
                     callReviewListApi();
                 } else {
                     alert('작업중 오류가 발생하였습니다.');
@@ -355,7 +363,7 @@ const GoodsDetail = () => {
             }
 
             if (writeReview_chk === "") {
-                alert("리뷰를 작성해주세요.");
+                sweetalert('리뷰를 작성해주세요.', '', 'error', '닫기');
                 return false;
             }
 
@@ -378,7 +386,7 @@ const GoodsDetail = () => {
                 });
                 const body = await response.text();
                 if (body === "succ") {
-                    alert('리뷰가 작성되었습니다.');
+                    await sweetalert('리뷰가 작성되었습니다.', '', 'success', '닫기');
                     $("#writeReview").val("");
                     setGrade(0);
                     callReviewListApi();
@@ -392,6 +400,15 @@ const GoodsDetail = () => {
         }
 
     }
+
+    const sweetalert = (title, contents, icon, confirmButtonText) => {
+		return Swal.fire({
+			title,
+			text: contents,
+			icon,
+			confirmButtonText
+		});
+	};
 
     return (
         <>

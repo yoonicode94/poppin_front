@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 import cookie from 'react-cookies';
+import Swal from 'sweetalert2';
 
 //import '../../../resources/assets/css/style.css';
 //import '../../../resources/bootstrap/css/bootstrap.min.css';
@@ -16,7 +17,7 @@ const Login = () => {
         const mpw_val = $('#password').val();
 
         if (mid_val === '' || mpw_val === '') {
-            alert('이메일과 비밀번호를 확인해주세요.');
+            sweetalert('이메일과 비밀번호를 확인해주세요.', '', 'error', '닫기');
         } else {
             axios.post('http://localhost:8080/member/login', {
                 mid: mid_val,
@@ -43,25 +44,35 @@ const Login = () => {
                                 cookie.save('userpassword', upw
                                     , { path: '/', expires })
 
-                                alert("로그인 되었습니다.");
                                 window.location.href = "/";
                             })
                             .catch(error => {
                                 alert('작업중 오류가 발생하였습니다.');
                             });
                     } else {
-                        alert('이메일과 비밀번호를 확인해주세요.');
+                        sweetalert('이메일과 비밀번호를 확인해주세요.', '', 'error', '닫기');
                     }
                 })
-                .catch(error => { alert('이메일과 비밀번호를 확인해주세요.'); });
+                .catch(error => { sweetalert('이메일과 비밀번호를 확인해주세요.', '', 'error', '닫기'); });
         }
     }
 
     const enterKey = (e) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             submitClick();
         }
     };
+
+    const sweetalert = (title, contents, icon, confirmButtonText) => {
+        Swal.fire({
+            title,
+            text: contents,
+            icon,
+            confirmButtonText
+        });
+    };
+
     return (
         <>
             <div class="login-box">
