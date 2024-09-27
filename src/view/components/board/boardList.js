@@ -117,9 +117,9 @@ const BoardList = () => {
             <tr key={board.bno}>
                 <td>{board.bno}</td>
                 <td className="title-align">
-                    <Link to={'/board/boardread/' + board.bno}>
+                    <a href={`/board/boardread/${board.bno}`}>
                         {board.btitle} <strong>({board.bccnt})</strong>
-                    </Link>
+                    </a>
                 </td>
                 <td>{board.bwriter}</td>
                 <td>{board.bdate}</td>

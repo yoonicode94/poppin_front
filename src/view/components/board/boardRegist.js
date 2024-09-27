@@ -14,6 +14,7 @@ const BoardRegist = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+
     useEffect(() => {
 
         var cookie_userid = cookie.load('userid')
@@ -78,6 +79,7 @@ const BoardRegist = () => {
                 bwriter: userId,
                 btitle: title,
                 bcon: content,
+                
             };
 
             try {
@@ -104,6 +106,7 @@ const BoardRegist = () => {
         })
     }
 
+    
 
     return (
         <main id="main" style={{display: "none"}}>
@@ -114,24 +117,28 @@ const BoardRegist = () => {
                             <form name="frm" id="frm" role="form" onSubmit={submitClick}>
                                 <input type="hidden" id="bwriter" name="bwriter" value={userId} />
                                 <div className="row">
-                                    <div className="col-md-12 mb-3">
+                                    <div className="col-md-12 mb-3 d-flex justify-content-between align-items-center">
                                         <h2>자유게시판</h2>
-                                        <div className="form-group">
+                                        <a href={`/board/boardlist`}>작성 취소</a>
+                                        
+                                    </div>
+                                    <div className="form-group">
                                             <input type="text" name="btitle" className="form-control form-control-lg form-control-a"
                                                 placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                                        </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12" style={{marginTop:'1%'}}>
                                         <div className="form-group">
                                             <textarea name="bcon" className="form-control" cols="45" rows="8" placeholder="Content"
                                                 value={content} onChange={(e) => setContent(e.target.value)} />
                                         </div>
                                     </div>
+                                    
                                     <div className="col-md-12 text-center">
                                         <button type="submit" className="btn btn-a">게시글 등록하기</button>
                                     </div>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>

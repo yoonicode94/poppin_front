@@ -35,7 +35,7 @@ const Post = ({ boardData, isAuthor, boardDelete }) => {
                                 <div className="post-share">
                                     <ul className="list-inline socials">
                                         <li>
-                                            <a href="/board/boardList">
+                                            <a href="/board/boardlist">
                                                 <button className="green-button btn button-text">게시판 목록</button>
                                             </a>
                                             {isAuthor && (

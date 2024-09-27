@@ -140,7 +140,9 @@ const Header = (props) => {
                                 <a id="popupstore" class="nav-link" href="/popup/popuplist" onClick={() => handleMenuClick('/popup/popuplist')}>팝업스토어</a>
                             </li>
 
-                            <li class={`nav-item ${window.location.pathname === '/board/boardlist' ? 'active' : ''}`}>
+                            <li class={`nav-item ${window.location.pathname === '/board/boardlist'
+                            || window.location.pathname.includes('/board/boardmodify')
+                            || window.location.pathname.includes('/board/boardread') ? 'active' : ''}`}>
                                 <a id="board" class="nav-link" href="/board/boardlist" onClick={() => handleMenuClick('/boardlist')}>게시판</a>
                             </li>
 

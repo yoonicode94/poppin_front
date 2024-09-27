@@ -60,7 +60,8 @@ class App extends Component {
       window.location.pathname.includes("/goods/goodslist") ||
       window.location.pathname.includes("/goods/goodsdetail") ||
       window.location.pathname === "/popup/popuplist" ||
-      window.location.pathname === "/board/boardlist"
+      window.location.pathname === "/board/boardlist" ||
+      window.location.pathname.includes("/board/boardread")
     ) {
       return {
         isVisible: true

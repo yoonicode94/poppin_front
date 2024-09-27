@@ -115,19 +115,23 @@ const BoardModify = () => {
                             <form name="frm" id="frm" role="form" onSubmit={submitClick}>
                                 <input type="hidden" id="bno" name="bno" value={bno} />
                                 <div className="row">
-                                    <div className="col-md-12 mb-3">
+                                    <div className="col-md-12 mb-3 d-flex justify-content-between align-items-center">
                                         <h2>자유게시판</h2>
+                                        <a href={`/board/boardread/${bno}`}>수정취소</a>
+                                    </div>
+                                    <div className="col-md-12">
                                         <div className="form-group">
                                             <input type="text" id="btitle" name="btitle" className="form-control form-control-lg form-control-a"
                                                 placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12" style={{marginTop:'1%'}}>
                                         <div className="form-group">
                                             <textarea id="bcon" name="bcon" className="form-control" cols="45" rows="8" placeholder="Content"
                                                 value={content} onChange={(e) => setContent(e.target.value)} />
                                         </div>
                                     </div>
+                                    
                                     <div className="col-md-12 text-center">
                                         <button type="submit" className="btn btn-a">게시글 수정하기</button>
                                     </div>
