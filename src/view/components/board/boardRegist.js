@@ -106,8 +106,6 @@ const BoardRegist = () => {
         })
     }
 
-    
-
     return (
         <main id="main" style={{display: "none"}}>
             <section className="contact">
@@ -120,7 +118,6 @@ const BoardRegist = () => {
                                     <div className="col-md-12 mb-3 d-flex justify-content-between align-items-center">
                                         <h2>자유게시판</h2>
                                         <a href={`/board/boardlist`}>작성 취소</a>
-                                        
                                     </div>
                                     <div className="form-group">
                                             <input type="text" name="btitle" className="form-control form-control-lg form-control-a"
