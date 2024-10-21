@@ -32,7 +32,7 @@ const BoardPage = () => {
 
     //사용자 아이디 가져오는 코드
     const callSessionInfoApi = () => {
-        axios.post('http://localhost:8080/member/jwtChk', {
+        axios.post('api/member/jwtChk', {
           token1: cookie.load('userid'),
           token2: cookie.load('username')
         })
@@ -53,7 +53,7 @@ const BoardPage = () => {
     useEffect(() => {
         const fetchBoardData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/board/boardPage/${bno}`);
+                const response = await axios.get(`api/board/boardPage/${bno}`);
                 console.log("bno="+bno);
                 const data = response.data.boardPage[0];
                 setBoardData({
@@ -83,7 +83,7 @@ const BoardPage = () => {
     //게시글 삭제
     const boardDelete = async () => {
         try{
-            const res = await axios.post('http://localhost:8080/board/boardDelete',{bno});
+            const res = await axios.post('api/board/boardDelete',{bno});
             if (res.data === "succ") {
                 sweetalert('삭제가 완료되었습니다.', '', 'success', '확인');
                 setTimeout(() => {
@@ -107,7 +107,7 @@ const BoardPage = () => {
 
     //댓글 관련 코드
     const callReplyListApi = () => {
-        axios.get(`http://localhost:8080/replyList/${bno}`, {
+        axios.get(`api/replyList/${bno}`, {
         }).then(response => {
             try {
                 setAppend_reply(replyList_append(response.data));
@@ -141,7 +141,7 @@ const BoardPage = () => {
 
             };
             try{
-                const res = await axios.post(`http://localhost:8080/replyRegist/${bno}`, replyData);
+                const res = await axios.post(`api/replyRegist/${bno}`, replyData);
                 if (res.data === "succ") {
                     sweetalert('등록되었습니다.', '', 'success', '확인');
                     setContent('');
@@ -177,7 +177,7 @@ const BoardPage = () => {
                 ccon: modifyCon
             }
             try{
-                const res = await axios.post('http://localhost:8080/replyModify', modifyData);
+                const res = await axios.post('api/replyModify', modifyData);
                 if (res.data === "succ") {
                     sweetalert('수정되었습니다.', '', 'success', '확인');
                     callReplyListApi();
@@ -191,7 +191,7 @@ const BoardPage = () => {
     //댓글 삭제
     const replyDelete = async (cno) =>{
         try{
-            const res = await axios.get(`http://localhost:8080/replyDelete/${cno}`);
+            const res = await axios.get(`api/replyDelete/${cno}`);
             if(res.data === "succ"){
                 sweetalert('삭제가 완료되었습니다.', '', 'success', '확인');
                 callReplyListApi();

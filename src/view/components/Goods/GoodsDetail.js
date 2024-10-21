@@ -88,11 +88,11 @@ const GoodsDetail = () => {
     const callMemberInfoApi = () => {
 
         if (currentMno !== mno || currentMno === "") {
-            axios.post("http://localhost:8080/member/jwtChk", {
+            axios.post("api/member/jwtChk", {
                 token1: cookie.load('userid'),
                 token2: cookie.load('username')
             }).then(response => {
-                axios.post("http://localhost:8080/member/jwtLogin", {
+                axios.post("api/member/jwtLogin", {
                     mid: response.data.token1,
                     mpw: cookie.load("userpassword")
                 }).then(response => {
@@ -109,7 +109,7 @@ const GoodsDetail = () => {
     }
 
     const callGoodsDetailApi = () => {
-        axios.get(`http://localhost:8080/goods/goodsdetail/${sno}/${pno}`, {
+        axios.get(`api/goods/goodsdetail/${sno}/${pno}`, {
         }).then(response => {
             try {
                 setAppend_GoodsDetail(GoodsDetail_Append(response.data));
@@ -179,7 +179,7 @@ const GoodsDetail = () => {
     }
 
     const callReviewListApi = () => {
-        axios.get(`http://localhost:8080/goods/reviewlist/${pno}`, {
+        axios.get(`api/goods/reviewlist/${pno}`, {
         }).then(response => {
             try {
                 setAppend_review(reviewList_append(response.data));
@@ -304,7 +304,7 @@ const GoodsDetail = () => {
         Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
 
         try {
-            const response = await fetch(`http://localhost:8080/goods/modifyreview/${rno}`, {
+            const response = await fetch(`api/goods/modifyreview/${rno}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -336,7 +336,7 @@ const GoodsDetail = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const response = await fetch(`http://localhost:8080/goods/deletereview/${rno}`, {
+                const response = await fetch(`api/goods/deletereview/${rno}`, {
                     method: 'POST'
                 });
                 const body = await response.text();
@@ -377,7 +377,7 @@ const GoodsDetail = () => {
             Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
 
             try {
-                const response = await fetch('http://localhost:8080/goods/writereview', {
+                const response = await fetch('api/goods/writereview', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

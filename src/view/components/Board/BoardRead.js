@@ -23,7 +23,7 @@ const BoardRead = () => {
     const [append_reply, setAppend_reply] = useState([]);
 
     const callSessionInfoApi = () => {
-        axios.post('http://localhost:8080/member/jwtChk', {
+        axios.post('api/member/jwtChk', {
             token1: cookie.load('userid'),
             token2: cookie.load('username')
         })
@@ -42,7 +42,7 @@ const BoardRead = () => {
     useEffect(() => {
         const fetchBoardData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/board/boardPage/${bno}`);
+                const response = await axios.get(`api/board/boardPage/${bno}`);
                 const data = response.data.boardPage[0];
                 setBoardData(data);
                 if (data.bwriter === userId) {
@@ -58,7 +58,7 @@ const BoardRead = () => {
 
     const boardDelete = async () => {
         try {
-            const res = await axios.post('http://localhost:8080/board/boardDelete', { bno });
+            const res = await axios.post('api/board/boardDelete', { bno });
             if (res.data === "succ") {
                 Swal.fire('삭제가 완료되었습니다.', '', 'success').then(() => {
                     navigate('/board/boardlist');
@@ -70,7 +70,7 @@ const BoardRead = () => {
     };
 
     const callReplyListApi = () => {
-        axios.get(`http://localhost:8080/replyList/${bno}`)
+        axios.get(`api/replyList/${bno}`)
         .then(response => {
             setAppend_reply(response.data.replyList);
             setBoardData(prev => ({ ...prev, bccnt: response.data.replyList.length }));

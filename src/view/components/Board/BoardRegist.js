@@ -34,7 +34,7 @@ const BoardRegist = () => {
     }, [append_attachList]);
 
     const callSessionInfoApi = () => {
-        axios.post('http://localhost:8080/member/jwtChk', {
+        axios.post('api/member/jwtChk', {
             token1: cookie.load('userid'),
             token2: cookie.load('username')
         })
@@ -73,7 +73,7 @@ const BoardRegist = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost:8080/board/boardRegist', jsonData);
+                const response = await axios.post('api/board/boardRegist', jsonData);
                 if (response.data === "succ") {
                     sweetalert('등록되었습니다.', '', 'success', '확인');
                     setTimeout(() => {
@@ -103,7 +103,7 @@ const BoardRegist = () => {
             const formData = new FormData();
             formData.append("file", file);
 
-            axios.post('http://localhost:8080/uploadAjax', formData, {
+            axios.post('api/uploadAjax', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -132,9 +132,9 @@ const BoardRegist = () => {
         } else {
             fileName = filePath.substring(filePath.indexOf('_') + 1);
         }
-        const imgSrc = `http://localhost:8080/displayFile?fileName=${filePath}`; // 이미지 URL 생성 함수 호출
+        const imgSrc = `api/displayFile?fileName=${filePath}`; // 이미지 URL 생성 함수 호출
         const icon = getFileIcon(fileName); // 보여지는 이미지 검사
-        const Link = `http://localhost:8080/displayFile?fileName=${filePath}`; // 파일 다운로드 링크
+        const Link = `api/displayFile?fileName=${filePath}`; // 파일 다운로드 링크
         const getLink = Link.replace(Link.substring(Link.lastIndexOf('/') + 1, Link.indexOf('_') + 1), "");
         const fullName = filePath; // 전체 경로
 
@@ -175,7 +175,7 @@ const BoardRegist = () => {
     };
 
     const handleDelete = (fullName) => {
-        axios.post("http://localhost:8080/deleteFile", {
+        axios.post("api/deleteFile", {
             fileName: fullName
         }).then(result => {
             if (result.data === 'deleted') {
@@ -189,7 +189,7 @@ const BoardRegist = () => {
 
     const handleDeleteAll = () => {
         const files = append_attachList.map(file => (file.fullName));
-        axios.post(`http://localhost:8080/deleteAllFiles`, {
+        axios.post(`api/deleteAllFiles`, {
             files: files
         })
             .then(result => {

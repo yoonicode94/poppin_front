@@ -21,7 +21,7 @@ const Comments = ({ bno, userId, callReplyListApi, replies }) => {
 
         const replyData = { bno, ccon: content, cwriter: userId };
         try {
-            const res = await axios.post(`http://localhost:8080/replyRegist/${bno}`, replyData);
+            const res = await axios.post(`api/replyRegist/${bno}`, replyData);
             if (res.data === "succ") {
                 sweetalert('등록되었습니다.', '', 'success', '확인');
                 setContent('');
@@ -45,7 +45,7 @@ const Comments = ({ bno, userId, callReplyListApi, replies }) => {
 
         const modifyData = { cno, ccon: modifyCon };
         try {
-            const res = await axios.post('http://localhost:8080/replyModify', modifyData);
+            const res = await axios.post('api/replyModify', modifyData);
             if (res.data === "succ") {
                 sweetalert('수정되었습니다.', '', 'success', '확인');
                 setEditingCno(null);
@@ -59,7 +59,7 @@ const Comments = ({ bno, userId, callReplyListApi, replies }) => {
 
     const replyDelete = async (cno) => {
         try {
-            const res = await axios.get(`http://localhost:8080/replyDelete/${cno}`);
+            const res = await axios.get(`api/replyDelete/${cno}`);
             if (res.data === "succ") {
                 sweetalert('삭제가 완료되었습니다.', '', 'success', '확인');
                 callReplyListApi();
