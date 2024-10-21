@@ -17,7 +17,7 @@ const PopupRead = () => {
     useEffect(() => {
         const fetchPopupData = async () => {
             try {
-                const response = await axios.get(`api/popup/popupRead/${sno}`);
+                const response = await axios.get(`/api/popup/popupRead/${sno}`);
                 const data = response.data.popupRead[0];
                 setPopupData({
                     sname: data.sname,
