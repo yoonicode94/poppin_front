@@ -21,7 +21,7 @@ const Join = () => {
 
 			const mid_val = $("#mid").val();
 
-			axios.post('http://localhost:8080/member/idcheck', {
+			axios.post('api/member/idcheck', {
 				mid: mid_val
 			})
 				.then(response => {
@@ -150,7 +150,7 @@ const Join = () => {
 		}
 
 		if (fnValidate()) {
-			axios.post('http://localhost:8080/member/emailCheck', {
+			axios.post('api/member/emailCheck', {
 				memail: memail1_chk + '@' + memail2_chk
 			})
 				.then(response => {
@@ -181,7 +181,7 @@ const Join = () => {
 		Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
 
 		try {
-			const response = await fetch('http://localhost:8080/member/join', {
+			const response = await fetch('api/member/join', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

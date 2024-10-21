@@ -9,7 +9,7 @@ const PopupList = () => {
     useEffect(() => {
         const fetchPopupList = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/popup/popupList');
+                const response = await axios.get('api/popup/popupList');
                 setResponseFPList(response.data);
             } catch (error) {
                 alert(`Error fetching data: ${error.message}`);

@@ -18,7 +18,7 @@ const BoardList = () => {
 
     const callBoardAPI = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/board/boardList');
+            const response = await axios.get('api/board/boardList');
             const data = response.data.boardList;
 
             const totalItems = data.length;

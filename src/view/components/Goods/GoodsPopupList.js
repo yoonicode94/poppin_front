@@ -11,7 +11,7 @@ const GoodsPopupList = () => {
     }, []);
 
     const callGoodsPopupListApi = () => {
-        axios.get("http://localhost:8080/goods/goodspopuplist", {
+        axios.get("api/goods/goodspopuplist", {
         }).then(response => {
             try {
                 setAppend_GoodsPopupList(GoodsPopupList_append(response.data));

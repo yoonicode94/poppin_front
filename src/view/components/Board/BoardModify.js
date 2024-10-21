@@ -19,7 +19,7 @@ const BoardModify = () => {
     // 사용자 아이디 가져오는 코드
     const callSessionInfoApi = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/member/jwtChk', {
+            const response = await axios.post('api/member/jwtChk', {
                 token1: cookie.load('userid'),
                 token2: cookie.load('username')
             });
@@ -33,7 +33,7 @@ const BoardModify = () => {
     useEffect(() => {
         const callBoardInfoApi = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/board/boardPage/${bno}`);
+                const res = await axios.get(`api/board/boardPage/${bno}`);
                 const data = res.data.boardPage[0];
                 setTitle(data.btitle);
                 setContent(data.bcon);
@@ -80,7 +80,7 @@ const BoardModify = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost:8080/board/boardModify', jsonData);
+                const response = await axios.post('api/board/boardModify', jsonData);
                 if (response.data === "succ") {
                     sweetalert('수정이 완료되었습니다.', '', 'success', '확인');
                     setTimeout(() => {

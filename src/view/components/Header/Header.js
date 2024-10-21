@@ -42,7 +42,7 @@ const Header = (props) => {
     }, [active]);
 
     const callSessionInfoApi = () => {
-        axios.post('http://localhost:8080/member/jwtChk', {
+        axios.post('api/member/jwtChk', {
             token1: cookie.load('userid')
             , token2: cookie.load('username')
         })
@@ -73,7 +73,7 @@ const Header = (props) => {
           window.location.pathname === '/board/boardregist' ||
           window.location.pathname.includes('/board/boardmodify')) {
     
-          axios.post('http://localhost:8080/member/jwtChk', {
+          axios.post('api/member/jwtChk', {
             token1: cookie.load('userid'),
             token2: cookie.load('username')
           })
@@ -81,7 +81,7 @@ const Header = (props) => {
               let userid = response.data.token1
               let password = cookie.load('userpassword')
               if (password !== undefined) {
-                axios.post('http://localhost:8080/member/jwtLogin', {
+                axios.post('api/member/jwtLogin', {
                   mid: userid,
                   mpw: password
                 })

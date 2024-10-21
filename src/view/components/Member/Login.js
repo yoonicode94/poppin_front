@@ -19,7 +19,7 @@ const Login = () => {
         if (mid_val === '' || mpw_val === '') {
             sweetalert('이메일과 비밀번호를 확인해주세요.', '', 'error', '닫기');
         } else {
-            axios.post('http://localhost:8080/member/login', {
+            axios.post('api/member/login', {
                 mid: mid_val,
                 mpw: mpw_val
             })
@@ -32,7 +32,7 @@ const Login = () => {
                         const expires = new Date()
                         expires.setMinutes(expires.getMinutes() + 60)
 
-                        axios.post('http://localhost:8080/member/jwt', {
+                        axios.post('api/member/jwt', {
                             mid: userid,
                             mname: username
                         })

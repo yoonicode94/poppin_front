@@ -13,7 +13,7 @@ const GoodsList = () => {
     }, []);
 
     const callGoodsListApi = () => {
-        axios.get(`http://localhost:8080/goods/goodslist/${sno}`, {
+        axios.get(`api/goods/goodslist/${sno}`, {
         }).then(response => {
             try {
                 setAppend_GoodsList(GoodsList_Append(response.data));
