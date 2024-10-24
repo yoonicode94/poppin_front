@@ -64,7 +64,7 @@ const PopupList = () => {
                     <div className="row">
                         <div className="col-md-12 col-lg-8">
                             <div className="title-single-box">
-                                <h1 className="title-single">진행중인 팝업스토어</h1>
+                                <h1 className="title-single">진행중인 POPUPSTORE</h1>
                                 <span className="color-text-a">골라골라</span>
                             </div>
                         </div>
