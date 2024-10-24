@@ -4,7 +4,7 @@ import slide_2 from "../../resources/assets/img/slide-2.jpg";
 import slide_3 from "../../resources/assets/img/slide-3.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // 필요한 모듈 import
-/* 테스트용 주석2 */
+/* 테스트용 주석3 */
 const MainView = () => {
 
     /* 넘기는 버튼 스타일 */
