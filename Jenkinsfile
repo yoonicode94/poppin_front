@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/tong76/frview', branch: 'master'
+        git url: 'https://github.com/yoonicode94/poppin_front', branch: 'master'
       }
     }
     stage('docker build and push') {
@@ -17,8 +17,8 @@ pipeline {
     stage('deploy kubernetes') {
       steps {
         sh '''
-        kubectl delete -f service.yaml
-        kubectl delete -f deployment.yaml
+        kubectl get service react-popup && kubectl delete -f service.yaml
+        kubectl get deployment react-popup && kubectl delete -f deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
         '''
