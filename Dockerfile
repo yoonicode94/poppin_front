@@ -23,7 +23,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Nginx 설정 파일 제거 및 빌드된 파일 복사
-COPY --from=build /frview/build /usr/share/nginx/html
+COPY --from=build /poppin_front/build /usr/share/nginx/html
 
 # proxy 설정
 COPY nginx.conf /etc/nginx/conf.d/default.conf
