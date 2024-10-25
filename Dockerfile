@@ -2,10 +2,10 @@
 FROM node:14 as build
 
 # 2. 소스코드 
-RUN git clone https://github.com/tong76/frview.git
+RUN git clone https://github.com/yoonicode94/poppin_front.git
 
 # 작업 디렉터리 설정
-WORKDIR /frview
+WORKDIR /poppin_front
 
 # 패키지 설치
 #COPY package*.json ./
